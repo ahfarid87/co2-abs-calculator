@@ -219,7 +219,7 @@ with st.sidebar:
             "`xgb_stage2.json`  `scaler_stage2.pkl`"
         )
     st.markdown("---")
-    st.caption("Two-stage XGBoost pipeline\nSynth → BET/TPV/MPV → Abs")
+    st.caption("CO2 Absorption Prediciton on Activated Carbon")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -416,7 +416,7 @@ with tab_opt:
 
     oc1, oc2 = st.columns(2)
     with oc1:
-        maxiter = st.slider("Max iterations", min_value=20, max_value=300, value=50, step=10)
+        maxiter = st.slider("Max iterations", min_value=20, max_value=300, value=20, step=10)
     with oc2:
         popsize = st.slider("Population size", min_value=5, max_value=30, value=5, step=1)
 
