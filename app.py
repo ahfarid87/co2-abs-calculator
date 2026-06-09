@@ -66,8 +66,8 @@ SEED             = 42
 FEATURE_META = {
     # name   : (label,                       min,    max,    default, step,  unit)
     "PS" : ("Particle Size (PS)",             50.0,   500.0,  127.5,  1.0,  "μm"),
-    "AR" : ("Aspect Ratio (AR)",               1.0,    10.0,    2.0,  1.0,  "—"),
-    "DR" : ("Drying Rate (DR)",                1.0,    20.0,    5.0,  1.0,  "°C/min"),
+    "AR" : ("Ratio of activating agent to carbon (AR)",               1.0,    10.0,    2.0,  1.0,  "—"),
+    "DR" : ("Not Doped (0)or doped (1)",                0,    1,    1,  1.0,  "-"),
     "C"  : ("Carbon Content (C)",             50.0,   100.0,   80.0,  0.1,  "wt%"),
     "H"  : ("Hydrogen Content (H)",            0.0,    10.0,    1.0,  0.1,  "wt%"),
     "N"  : ("Nitrogen Content (N)",            0.0,    10.0,    1.0,  0.1,  "wt%"),
@@ -300,7 +300,7 @@ with tab_pred:
                 f'<div class="result-box">'
                 f'<div style="color:#555;font-size:0.9rem">Predicted CO₂ Absorption</div>'
                 f'<div class="result-big">{result["Abs_pred"]:.4f}</div>'
-                f'<div style="color:#555;font-size:0.85rem">mmol/g  (or your target unit)</div>'
+                f'<div style="color:#555;font-size:0.85rem">mmol/g  </div>'
                 f'</div>',
                 unsafe_allow_html=True,
             )
