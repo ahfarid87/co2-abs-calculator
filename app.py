@@ -416,9 +416,9 @@ with tab_opt:
 
     oc1, oc2 = st.columns(2)
     with oc1:
-        maxiter = st.slider("Max iterations", min_value=20, max_value=300, value=80, step=10)
+        maxiter = st.slider("Max iterations", min_value=20, max_value=300, value=50, step=10)
     with oc2:
-        popsize = st.slider("Population size", min_value=5, max_value=30, value=12, step=1)
+        popsize = st.slider("Population size", min_value=5, max_value=30, value=5, step=1)
 
     st.markdown("---")
 
