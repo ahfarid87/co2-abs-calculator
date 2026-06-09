@@ -31,73 +31,25 @@ st.set_page_config(
 # ─────────────────────────────────────────────────────────────────────────────
 st.markdown("""
 <style>
-    /* ── Global base font size ── */
-    html, body, [class*="css"] {
-        font-size: 17px !important;
-    }
-
-    /* ── Sidebar text ── */
-    section[data-testid="stSidebar"] * {
-        font-size: 1rem !important;
-    }
-
-    /* ── Input labels ── */
-    label, .stNumberInput label, .stSelectbox label,
-    .stMultiSelect label, .stRadio label, .stSlider label {
-        font-size: 1rem !important;
-        font-weight: 600 !important;
-    }
-
-    /* ── Input values (typed numbers) ── */
-    input[type="number"], input[type="text"] {
-        font-size: 1.05rem !important;
-    }
-
-    /* ── Tab labels ── */
-    button[data-baseweb="tab"] {
-        font-size: 1.05rem !important;
-        font-weight: 600 !important;
-    }
-
-    /* ── Buttons ── */
-    .stButton > button {
-        font-size: 1.05rem !important;
-        padding: 0.55rem 1.2rem !important;
-    }
-
-    /* ── Dataframe / table text ── */
-    .stDataFrame * { font-size: 0.95rem !important; }
-
-    /* ── Expander header ── */
-    .streamlit-expanderHeader { font-size: 1rem !important; }
-
-    /* ── Metric labels and values ── */
-    div[data-testid="metric-container"] label { font-size: 0.95rem !important; }
-    div[data-testid="metric-container"] div[data-testid="stMetricValue"] {
-        font-size: 1.4rem !important; font-weight: 700 !important;
-    }
-
-    /* ── Custom components ── */
     .main-title {
-        font-size: 2.2rem; font-weight: 700;
+        font-size: 2.0rem; font-weight: 700;
         background: linear-gradient(90deg, #1e3a5f, #2563EB);
         -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
     .result-box {
         background: linear-gradient(135deg, #e8f4fd, #dbeafe);
         border-left: 5px solid #2563EB;
-        padding: 1.4rem 1.8rem; border-radius: 0.5rem; margin: 0.5rem 0;
+        padding: 1.2rem 1.5rem; border-radius: 0.5rem; margin: 0.5rem 0;
     }
-    .result-big { font-size: 2.8rem; font-weight: 800; color: #1e3a5f; }
-    .result-box div { font-size: 1rem !important; }
+    .result-big { font-size: 2.4rem; font-weight: 800; color: #1e3a5f; }
     .section-header {
-        font-size: 1.2rem; font-weight: 700; color: #1e3a5f;
-        border-bottom: 2px solid #bfdbfe; padding-bottom: 0.3rem; margin-bottom: 0.9rem;
+        font-size: 1.1rem; font-weight: 600; color: #1e3a5f;
+        border-bottom: 2px solid #bfdbfe; padding-bottom: 0.3rem; margin-bottom: 0.8rem;
     }
-    .stAlert p { font-size: 1rem; }
+    .stAlert p { font-size: 0.9rem; }
     div[data-testid="metric-container"] {
         background: #f0f9ff; border-radius: 0.4rem;
-        padding: 0.6rem; border: 1px solid #bae6fd;
+        padding: 0.5rem; border: 1px solid #bae6fd;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -249,7 +201,8 @@ def run_optimisation(models, fixed_values, vary_features,
 # Sidebar — model loading status
 # ─────────────────────────────────────────────────────────────────────────────
 with st.sidebar:
-    st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/CO2_with_labels.svg/120px-CO2_with_labels.svg.png", width=80)
+    #st.image("logo.png", width=120)
+    st.image("logo.png", use_container_width=True)
     st.markdown("## CO₂ Abs Calculator")
     st.markdown("---")
     models, missing = load_models()
