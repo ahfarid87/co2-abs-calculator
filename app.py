@@ -225,7 +225,7 @@ with st.sidebar:
 # ─────────────────────────────────────────────────────────────────────────────
 # Main area
 # ─────────────────────────────────────────────────────────────────────────────
-st.markdown('<p class="main-title">🧪 CO₂ Absorption Prediction & Optimisation</p>',
+st.markdown('<p class="main-title">🧪 CO₂ Adsorption Prediction & Optimisation</p>',
             unsafe_allow_html=True)
 
 tab_pred, tab_opt = st.tabs(["🔮  Predict Abs", "⚙️  Optimise Synthesis"])
