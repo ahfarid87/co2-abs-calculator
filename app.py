@@ -156,7 +156,7 @@ def predict_abs(sample_dict, models):
 def run_optimisation(models, fixed_values, vary_features,
                      bounds_mode="percentile", maxiter=80, popsize=12):
     """
-    Maximise predicted Abs using differential evolution.
+    Maximise predicted Ads using differential evolution.
     bounds_mode: 'percentile' → 5th-95th pct from reference  |  'manual' → use user bounds
     """
     bounds = []
@@ -203,7 +203,7 @@ def run_optimisation(models, fixed_values, vary_features,
 with st.sidebar:
     #st.image("logo.png", width=120)
     st.image("logo.png", use_container_width=True)
-    st.markdown("## CO₂ Abs Calculator")
+    st.markdown("## CO₂ Ads Calculator")
     st.markdown("---")
     models, missing = load_models()
     if models:
@@ -219,7 +219,7 @@ with st.sidebar:
             "`xgb_stage2.json`  `scaler_stage2.pkl`"
         )
     st.markdown("---")
-    st.caption("CO2 Absorption Prediciton on Activated Carbon")
+    st.caption("CO2 Adsorption Prediciton on Activated Carbon")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -228,13 +228,13 @@ with st.sidebar:
 st.markdown('<p class="main-title">🧪 CO₂ Adsorption Prediction & Optimisation</p>',
             unsafe_allow_html=True)
 
-tab_pred, tab_opt = st.tabs(["🔮  Predict Abs", "⚙️  Optimise Synthesis"])
+tab_pred, tab_opt = st.tabs(["🔮  Predict Ads", "⚙️  Optimise Synthesis"])
 
 # ═══════════════════════════════════════════════════════════════════════════
 # TAB 1 — PREDICTION
 # ═══════════════════════════════════════════════════════════════════════════
 with tab_pred:
-    st.markdown("Enter synthesis and operating conditions to predict CO₂ absorption.")
+    st.markdown("Enter synthesis and operating conditions to predict CO₂ adsorption.")
     st.markdown("---")
 
     # ── Input form ───────────────────────────────────────────────────────────
