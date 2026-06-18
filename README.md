@@ -1,8 +1,8 @@
-# 🧪 CO₂ Absorption Prediction & Optimisation Calculator
+# 🧪 CO₂ Adsorption Prediction & Optimisation Calculator
 
 A Streamlit web app that uses a two-stage XGBoost pipeline to:
-1. **Predict** CO₂ absorption from synthesis and operating parameters
-2. **Optimise** synthesis conditions to maximise CO₂ absorption
+1. **Predict** CO₂ adsorption from synthesis and operating parameters
+2. **Optimise** synthesis conditions to maximise CO₂ adsorption
 
 ## Pipeline Architecture
 
