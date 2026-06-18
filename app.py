@@ -1,5 +1,5 @@
 """
-CO₂ Absorption Prediction & Optimisation Calculator
+CO₂ Adsorption Prediction & Optimisation Calculator
 ====================================================
 Usage:  streamlit run app.py
 Place all model files in the same folder as this script.
