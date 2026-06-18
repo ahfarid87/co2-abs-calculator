@@ -328,7 +328,7 @@ with tab_pred:
 with tab_opt:
     st.markdown(
         "Fix whichever parameters you want to hold constant, "
-        "and the optimizer will find the synthesis conditions that **maximise** CO₂ absorption."
+        "and the optimizer will find the synthesis conditions that **maximise** CO₂ adsorption."
     )
     st.markdown("---")
 
