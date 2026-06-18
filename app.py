@@ -120,7 +120,7 @@ def load_models():
 # ─────────────────────────────────────────────────────────────────────────────
 # Prediction pipeline
 # ─────────────────────────────────────────────────────────────────────────────
-def predict_Abs(sample_dict, models):
+def predict_abs(sample_dict, models):
     df_new = pd.DataFrame([sample_dict])
 
     for prop in TEXTURE_FEATURES:
@@ -139,14 +139,14 @@ def predict_Abs(sample_dict, models):
 
     X  = df_new[S2_FEATURES].values
     Xs = models["scaler_stage2"].transform(X)
-    Abs_pred = float(models["xgb_stage2"].predict(Xs)[0])
+    abs_pred = float(models["xgb_stage2"].predict(Xs)[0])
 
     return {
         **sample_dict,
         "BET_pred": float(df_new["BET_pred"].iloc[0]),
         "TPV_pred": float(df_new["TPV_pred"].iloc[0]),
         "MPV_pred": float(df_new["MPV_pred"].iloc[0]),
-        "Abs_pred": Abs_pred,
+        "Abs_pred": abs_pred,
     }
 
 
@@ -176,7 +176,7 @@ def run_optimisation(models, fixed_values, vary_features,
         for feat in INTEGER_VARS:
             if feat in candidate:
                 candidate[feat] = int(round(candidate[feat]))
-        pred = predict_Abs(candidate, models)
+        pred = predict_abs(candidate, models)
         return -pred["Abs_pred"]
 
     result = differential_evolution(
@@ -193,7 +193,7 @@ def run_optimisation(models, fixed_values, vary_features,
         if feat in best:
             best[feat] = int(round(best[feat]))
 
-    best_pred = predict_Abs(best, models)
+    best_pred = predict_abs(best, models)
     return best, best_pred, result
 
 
@@ -228,13 +228,13 @@ with st.sidebar:
 st.markdown('<p class="main-title">🧪 CO₂ Absorption Prediction & Optimisation</p>',
             unsafe_allow_html=True)
 
-tab_pred, tab_opt = st.tAbs(["🔮  Predict Abs", "⚙️  Optimise Synthesis"])
+tab_pred, tab_opt = st.tabs(["🔮  Predict Abs", "⚙️  Optimise Synthesis"])
 
 # ═══════════════════════════════════════════════════════════════════════════
 # TAB 1 — PREDICTION
 # ═══════════════════════════════════════════════════════════════════════════
 with tab_pred:
-    st.markdown("Enter synthesis and operating conditions to predict CO₂ Absorption.")
+    st.markdown("Enter synthesis and operating conditions to predict CO₂ absorption.")
     st.markdown("---")
 
     # ── Input form ───────────────────────────────────────────────────────────
@@ -289,7 +289,7 @@ with tab_pred:
             st.error("Models not loaded. Check sidebar for instructions.")
         else:
             with st.spinner("Running two-stage prediction …"):
-                result = predict_Abs(inputs, models)
+                result = predict_abs(inputs, models)
 
             st.markdown("---")
             st.markdown('<p class="section-header">📊 Prediction Results</p>',
@@ -328,7 +328,7 @@ with tab_pred:
 with tab_opt:
     st.markdown(
         "Fix whichever parameters you want to hold constant, "
-        "and the optimizer will find the synthesis conditions that **maximise** CO₂ Absorption."
+        "and the optimizer will find the synthesis conditions that **maximise** CO₂ absorption."
     )
     st.markdown("---")
 
