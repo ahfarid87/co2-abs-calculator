@@ -20,7 +20,7 @@ import streamlit as st
 # Page config
 # ─────────────────────────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="CO₂ Abs Calculator",
+    page_title="CO₂ Ads Calculator",
     page_icon="🧪",
     layout="wide",
     initial_sidebar_state="expanded",
