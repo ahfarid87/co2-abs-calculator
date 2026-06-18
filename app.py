@@ -1,5 +1,5 @@
 """
-CO₂ Absorption Prediction & Optimisation Calculator
+CO₂ Adsorption Prediction & Optimisation Calculator
 ====================================================
 Usage:  streamlit run app.py
 Place all model files in the same folder as this script.
@@ -20,7 +20,7 @@ import streamlit as st
 # Page config
 # ─────────────────────────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="CO₂ Abs Calculator",
+    page_title="CO₂ Ads Calculator",
     page_icon="🧪",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -120,7 +120,7 @@ def load_models():
 # ─────────────────────────────────────────────────────────────────────────────
 # Prediction pipeline
 # ─────────────────────────────────────────────────────────────────────────────
-def predict_abs(sample_dict, models):
+def predict_Ads(sample_dict, models):
     df_new = pd.DataFrame([sample_dict])
 
     for prop in TEXTURE_FEATURES:
@@ -139,14 +139,14 @@ def predict_abs(sample_dict, models):
 
     X  = df_new[S2_FEATURES].values
     Xs = models["scaler_stage2"].transform(X)
-    abs_pred = float(models["xgb_stage2"].predict(Xs)[0])
+    Ads_pred = float(models["xgb_stage2"].predict(Xs)[0])
 
     return {
         **sample_dict,
         "BET_pred": float(df_new["BET_pred"].iloc[0]),
         "TPV_pred": float(df_new["TPV_pred"].iloc[0]),
         "MPV_pred": float(df_new["MPV_pred"].iloc[0]),
-        "Abs_pred": abs_pred,
+        "Ads_pred": Ads_pred,
     }
 
 
@@ -156,7 +156,7 @@ def predict_abs(sample_dict, models):
 def run_optimisation(models, fixed_values, vary_features,
                      bounds_mode="percentile", maxiter=80, popsize=12):
     """
-    Maximise predicted Abs using differential evolution.
+    Maximise predicted Ads using differential evolution.
     bounds_mode: 'percentile' → 5th-95th pct from reference  |  'manual' → use user bounds
     """
     bounds = []
@@ -176,8 +176,8 @@ def run_optimisation(models, fixed_values, vary_features,
         for feat in INTEGER_VARS:
             if feat in candidate:
                 candidate[feat] = int(round(candidate[feat]))
-        pred = predict_abs(candidate, models)
-        return -pred["Abs_pred"]
+        pred = predict_Ads(candidate, models)
+        return -pred["Ads_pred"]
 
     result = differential_evolution(
         objective, bounds=bounds,
@@ -193,7 +193,7 @@ def run_optimisation(models, fixed_values, vary_features,
         if feat in best:
             best[feat] = int(round(best[feat]))
 
-    best_pred = predict_abs(best, models)
+    best_pred = predict_Ads(best, models)
     return best, best_pred, result
 
 
@@ -203,7 +203,7 @@ def run_optimisation(models, fixed_values, vary_features,
 with st.sidebar:
     #st.image("logo.png", width=120)
     st.image("logo.png", use_container_width=True)
-    st.markdown("## CO₂ Abs Calculator")
+    st.markdown("## CO₂ Ads Calculator")
     st.markdown("---")
     models, missing = load_models()
     if models:
@@ -219,22 +219,22 @@ with st.sidebar:
             "`xgb_stage2.json`  `scaler_stage2.pkl`"
         )
     st.markdown("---")
-    st.caption("CO2 Absorption Prediciton on Activated Carbon")
+    st.caption("CO2 Adsorption Prediciton on Activated Carbon")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Main area
 # ─────────────────────────────────────────────────────────────────────────────
-st.markdown('<p class="main-title">🧪 CO₂ Absorption Prediction & Optimisation</p>',
+st.markdown('<p class="main-title">🧪 CO₂ Adsorption Prediction & Optimisation</p>',
             unsafe_allow_html=True)
 
-tab_pred, tab_opt = st.tabs(["🔮  Predict Abs", "⚙️  Optimise Synthesis"])
+tab_pred, tab_opt = st.tAds(["🔮  Predict Ads", "⚙️  Optimise Synthesis"])
 
 # ═══════════════════════════════════════════════════════════════════════════
 # TAB 1 — PREDICTION
 # ═══════════════════════════════════════════════════════════════════════════
 with tab_pred:
-    st.markdown("Enter synthesis and operating conditions to predict CO₂ absorption.")
+    st.markdown("Enter synthesis and operating conditions to predict CO₂ Adsorption.")
     st.markdown("---")
 
     # ── Input form ───────────────────────────────────────────────────────────
@@ -281,7 +281,7 @@ with tab_pred:
         inputs[feat] = float(val)
 
         st.markdown("---")
-        predict_btn = st.button("🔮 Predict Abs", use_container_width=True, type="primary")
+        predict_btn = st.button("🔮 Predict Ads", use_container_width=True, type="primary")
 
     # ── Output ───────────────────────────────────────────────────────────────
     if predict_btn:
@@ -289,7 +289,7 @@ with tab_pred:
             st.error("Models not loaded. Check sidebar for instructions.")
         else:
             with st.spinner("Running two-stage prediction …"):
-                result = predict_abs(inputs, models)
+                result = predict_Ads(inputs, models)
 
             st.markdown("---")
             st.markdown('<p class="section-header">📊 Prediction Results</p>',
@@ -298,8 +298,8 @@ with tab_pred:
             # Main result
             st.markdown(
                 f'<div class="result-box">'
-                f'<div style="color:#555;font-size:0.9rem">Predicted CO₂ Absorption</div>'
-                f'<div class="result-big">{result["Abs_pred"]:.4f}</div>'
+                f'<div style="color:#555;font-size:0.9rem">Predicted CO₂ Adsorption</div>'
+                f'<div class="result-big">{result["Ads_pred"]:.4f}</div>'
                 f'<div style="color:#555;font-size:0.85rem">mmol/g  </div>'
                 f'</div>',
                 unsafe_allow_html=True,
@@ -318,7 +318,7 @@ with tab_pred:
                 summary["BET_pred"]  = [round(result["BET_pred"], 3)]
                 summary["TPV_pred"]  = [round(result["TPV_pred"], 4)]
                 summary["MPV_pred"]  = [round(result["MPV_pred"], 4)]
-                summary["Abs_pred"]  = [round(result["Abs_pred"], 4)]
+                summary["Ads_pred"]  = [round(result["Ads_pred"], 4)]
                 st.dataframe(pd.DataFrame(summary), use_container_width=True)
 
 
@@ -328,7 +328,7 @@ with tab_pred:
 with tab_opt:
     st.markdown(
         "Fix whichever parameters you want to hold constant, "
-        "and the optimizer will find the synthesis conditions that **maximise** CO₂ absorption."
+        "and the optimizer will find the synthesis conditions that **maximise** CO₂ Adsorption."
     )
     st.markdown("---")
 
@@ -455,8 +455,8 @@ with tab_opt:
             # Main result
             st.markdown(
                 f'<div class="result-box">'
-                f'<div style="color:#555;font-size:0.9rem">Best Predicted CO₂ Absorption</div>'
-                f'<div class="result-big">{best_pred["Abs_pred"]:.4f}</div>'
+                f'<div style="color:#555;font-size:0.9rem">Best Predicted CO₂ Adsorption</div>'
+                f'<div class="result-big">{best_pred["Ads_pred"]:.4f}</div>'
                 f'<div style="color:#555;font-size:0.85rem">Converged: '
                 f'{"✅ Yes" if de_result.success else "⚠️ Not fully"} '
                 f'| Iterations: {de_result.nit}</div>'
@@ -499,7 +499,7 @@ with tab_opt:
 
             # Download
             csv_out = opt_df.copy()
-            csv_out["Abs_pred"] = best_pred["Abs_pred"]
+            csv_out["Ads_pred"] = best_pred["Ads_pred"]
             csv_out["BET_pred"] = best_pred["BET_pred"]
             csv_out["TPV_pred"] = best_pred["TPV_pred"]
             csv_out["MPV_pred"] = best_pred["MPV_pred"]
